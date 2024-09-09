@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Kalam } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/app/ui/Navbar";
+import Footer from "@/app/ui/Footer";
 
 const kalam = Kalam({ subsets: ['latin'], weight: ['300','400', '700'] });
 
@@ -42,6 +43,7 @@ export default function RootLayout({
       <body className={kalam.className}>
         <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   );
