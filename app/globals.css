@@ -44,6 +44,16 @@ body {
 }
 
 
+/* recipes page */
+#recipesHero {
+  background-image: url('/recipes-hero.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 20vw;
+}
+
+
 @media (max-width: 768px) {
   .hero {
     background-image: ('/hero-mobile.jpg');
@@ -56,6 +66,11 @@ body {
     right: 5%;
     height: 70px;
     width: auto;
+  }
+
+  #recipesHero {
+    height: 50vw;
+    background-image: url('/recipes-hero-mobile.jpg');
   }
 }
 

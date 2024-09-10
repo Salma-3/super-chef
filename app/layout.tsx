@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Kalam } from "next/font/google";
 import "./globals.css";
+import './themify-icons.css'
 import Navbar from "@/app/ui/Navbar";
 import Footer from "@/app/ui/Footer";
 

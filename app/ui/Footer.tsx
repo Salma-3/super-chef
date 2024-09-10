@@ -9,7 +9,7 @@ function Footer({ }: Props) {
         <footer className='bg-gray-700 py-10'>
             <div className='flex flex-col justify-center md:flex-row md:justify-around'>
                 <div className='w-100 md:w-3/12 text-center'>
-                    <Image className='mx-auto' src='/logo.png' width={50} height={50} alt='superchef' />
+                    <Image className='mx-auto' src='/logo.png' width={100} height={100} alt='superchef' />
                     <p className='text-secondary'>Superchef is your best delicious food reference.</p>
                     <div className='mt-4'>
                         <Link className='inline-block me-5 text-secondary hover:text-white' href='#'>
