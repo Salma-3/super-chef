@@ -2,12 +2,19 @@
 import React, { useState } from 'react'
 import Image from 'next/image'
 import Link from 'next/link';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 
 type Props = {}
 
 function Navbar({ }: Props) {
     const [mobileMenuOpen, setMobileMenu] = useState(false)
     const [dropdownOpen, setDropdown] = useState(false);
+    const pathname = usePathname()
+
+    const isCurrentPath = (href: string) => {
+        return pathname === href;
+    }
     return (
         <nav className="bg-gray-100">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -33,11 +40,11 @@ function Navbar({ }: Props) {
                         </div>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
-                                <Link href="/" className="rounded-md px-3 py-2 text-md font-medium text-primary" aria-current="page">Home</Link>
-                                <Link href="/recipes" className="rounded-md px-3 py-2 text-md font-medium text-gray-800  hover:text-primary">Recipes</Link>
-                                <Link href="/signup" className="rounded-md px-3 py-2 text-md  font-medium text-gray-800  hover:text-primary">Signup</Link>
-                                <Link href="/blog" className="rounded-md px-3 py-2 text-md  font-medium text-gray-800  hover:text-primary">Blog</Link>
-                                <Link href="/about" className="rounded-md px-3 py-2 text-md font-medium text-gray-800  hover:text-primary">About</Link>
+                                <Link href="/" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/') && 'text-primary')} aria-current="page">Home</Link>
+                                <Link href="/recipes" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/recipes') && 'text-primary')}>Recipes</Link>
+                                <Link href="/signup" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/signup') && 'text-primary')}>Signup</Link>
+                                <Link href="/blog" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/blog') && 'text-primary')}>Blog</Link>
+                                <Link href="/about" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/about') && 'text-primary')}>About</Link>
                             </div>
                         </div>
                     </div>
@@ -72,11 +79,11 @@ function Navbar({ }: Props) {
             {/* <!-- Mobile menu, show/hide based on menu state. --> */}
             {mobileMenuOpen && <div className="sm:hidden" id="mobile-menu">
                 <div className="space-y-1 px-2 pb-3 pt-2">
-                    <Link href="/" className="block rounded-md bg-primary px-3 py-2 text-base font-medium text-white" aria-current="page">Home</Link>
-                    <Link href="/recipes" className="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:text-primary">Recipes</Link>
-                    <Link href="/signup" className="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:text-primary">Signup</Link>
-                    <Link href="/blog" className="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:text-primary">Blog</Link>
-                    <Link href="/about" className="block rounded-md px-3 py-2 text-base font-medium text-gray-800 hover:text-primary">About</Link>
+                    <Link href="/" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/') && "bg-primary text-white")} aria-current="page">Home</Link>
+                    <Link href="/recipes" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/recipes') && "bg-primary text-white")}>Recipes</Link>
+                    <Link href="/signup" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/signup') && "bg-primary text-white")}>Signup</Link>
+                    <Link href="/blog" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/blog') && "bg-primary text-white")}>Blog</Link>
+                    <Link href="/about" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/about') && "bg-primary text-white")}>About</Link>
                 </div>
             </div>}
         </nav>
