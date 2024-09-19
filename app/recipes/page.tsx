@@ -46,7 +46,7 @@ function RecipesIndex({ }: Props) {
 
             {/* pagination */}
             <div className="text-center mt-10">
-              <Pagination count={200} limit={20} />
+              <Pagination count={1000} limit={10} />
             </div>
           </div>
         </div>
