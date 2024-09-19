@@ -7,7 +7,7 @@ type Props = {
 }
 
 function RatingAnalysis({ ratings }: Props) {
-   const starsPercent = {'5': 0, '4': 0, '3': 0, '2': 0, '1': 0};
+   const starsPercent = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0};
 
     
     for(let i=0; i<ratings.length; i++){
@@ -16,15 +16,13 @@ function RatingAnalysis({ ratings }: Props) {
         starsPercent[key]= starsPercent[key]+1 
     }
     
-    const ratingBars = Object.entries(starsPercent).map(([k, val]) => {
+    const ratingBars = Object.entries(starsPercent).sort(([key1], [key2]) => Number(key1) > Number(key2) ? -1 : 1 ).map(([k, val]) => {
         const per = Math.floor(val/ratings.length *100)
-        const w = per > 0 ? `w-[${per}%]` : 'w-[0px]'
-        const clx = `absolute top-0 bottom-0 right-0 left-0 bg-yellow-500 ${w}`
         return (
             <div key={`bars-${k}`} className='flex justify-center mb-5 gap-5'>
                 <div>{k} star</div>
                 <div className='relative w-[200px] h-[20px] bg-gray-100'>
-                    <div className={clx}></div>
+                    <div style={{ width: per+'%'}} className='absolute top-0 bottom-0 right-0 left-0 bg-yellow-500'></div>
                 </div>
             </div>
         )
