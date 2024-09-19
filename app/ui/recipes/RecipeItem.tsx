@@ -2,14 +2,15 @@ import React from 'react'
 import Star from '@/app/ui/Star'
 import Image from 'next/image'
 import Link from 'next/link'
+import Rating from './Rating'
 
 
 type Props = {}
 
 function RecipeItem({}: Props) {
   return (
-                <Link href='#' className='flex flex-row gap-3 max-w-[300px] md:flex-col  w-full border-b md:border'>
-                    <div className="relative w-full h-[106px] md:h-[200px] border border-gray-200">
+                <Link href='/recipes/1' className='flex flex-row gap-3 pb-4 md:flex-col md:pb-0  w-full border-b md:border'>
+                    <div className="relative md:w-full w-[170px] h-[106px] md:h-[200px] border border-gray-200">
                         <Image src='/images/dinner.jpg' fill alt='recipe cover' />
                         <button className='block absolute top-2 right-2 pt-2 w-[40px] h-[40px] rounded-full text-2xl text-white bg-primary hover:bg-primary/80'>
                             <i className='ti ti-heart'></i>
@@ -20,14 +21,7 @@ function RecipeItem({}: Props) {
                         <h6 className="text-lg font-bold">
                             Show cooker buffalo chicken sandawiches
                         </h6>
-                        <p>
-                            <span className="me-1 text-yellow-500"><Star/></span>
-                            <span className="me-1 text-yellow-500"><Star/></span>
-                            <span className="me-1 text-yellow-500"><Star/></span>
-                            <span className="me-1 text-yellow-500"><Star/></span>
-                            <span className="me-1 text-yellow-500"><Star/></span>
-                            <span className='ms-2 text-gray-600 text-sm'>(218)</span>
-                        </p>
+                        <Rating rate={5}/>
                     </div>
                 </Link>
   )
