@@ -1,5 +1,5 @@
 import { Metadata } from 'next'
-import React from 'react'
+import React, { Suspense } from 'react'
 import Filter from '@/app/ui/recipes/Filter'
 import RecipesList from '@/app/ui/recipes/RecipesList'
 import Pagination from '@/app/ui/Pagination'
@@ -46,7 +46,9 @@ function RecipesIndex({ }: Props) {
 
             {/* pagination */}
             <div className="text-center mt-10">
-              <Pagination count={1000} limit={10} />
+              <Suspense fallback={<span>Loading</span>}>
+                <Pagination count={1000} limit={10} />
+              </Suspense>
             </div>
           </div>
         </div>
