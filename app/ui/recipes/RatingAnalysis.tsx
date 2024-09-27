@@ -3,10 +3,11 @@ import React, { useEffect, useState } from 'react'
 import Rating from './Rating'
 
 type Props = {
-    ratings: number[]
+    ratings: number[];
+    totalRating: number;
 }
 
-function RatingAnalysis({ ratings }: Props) {
+function RatingAnalysis({ ratings, totalRating }: Props) {
    const starsPercent = {'1': 0, '2': 0, '3': 0, '4': 0, '5': 0};
 
     
@@ -33,8 +34,8 @@ function RatingAnalysis({ ratings }: Props) {
   return (
       <div>
           <div className="text-center">
-              <Rating rate={4.5} />
-              <h4 className='text-lg'>128 Rates</h4>
+              <Rating rate={totalRating} />
+              <h4 className='text-lg'>{ratings.length} Rates</h4>
               <div className="my-10">
                 
                  {ratingBars}

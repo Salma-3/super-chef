@@ -25,7 +25,7 @@ function RecipeItem({ data }: Props) {
                         <h6 className="text-lg font-bold group-hover:text-primary">
                             {data.name}
                         </h6>
-                        <Rating rate={4.3}/>
+                        <Rating rate={data.rate}/>
                         <div className='flex h-[20px] flex-wrap'>
                           {
                             data.tags.map((tag, i) => (

@@ -23,6 +23,7 @@ model User {
   pintrest  String?
   twitter   String?
   recipes   Recipe[]
+  reviews   Review[]
 }
 
 model Category {
@@ -57,6 +58,19 @@ model Recipe {
   calories     Int
   rate         Float       @default(0)
   nutrition    Nutrition[]
+  reviews      Review[]
   createdAt    DateTime    @default(now())
   updatedAt    DateTime    @updatedAt
+}
+
+model Review {
+  id        Int      @unique @default(autoincrement())
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  Int
+  recipe    Recipe   @relation(fields: [recipeId], references: [id])
+  recipeId  Int
+  rate      Int
+  body      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

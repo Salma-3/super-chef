@@ -24,7 +24,12 @@ async function page({ params: { slug } }: Props) {
         }
     })
 
+    const reviews = await prisma.review.findMany({ where: { recipe: { slug }}, include: { author: true }})
+
     console.log(recipe);
+    const reviewsWithComment = reviews.filter(rv => !!rv.body)
+    const rateNumbers = reviews.map(rv => rv.rate);
+    
 
     if(!recipe) {
         return <main>Not Found</main>
@@ -41,12 +46,12 @@ async function page({ params: { slug } }: Props) {
                         {/* rate shortcut */}
                         <div>
                             <div className='mb-10 flex'>
-                                <Rating rate={3.5}/>
+                                <Rating rate={recipe?.rate}/>
 
-                                <Link href='#rating' className='ms-3 me-2 text-sm border-b border-primary hover:border-b-2 '>4.5</Link>
-                                <span className='text-sm text-gray-500'>(467)</span>
+                                <Link href='#rating' className='ms-3 me-2 text-sm border-b border-primary hover:border-b-2 '>{recipe?.rate}</Link>
+                                <span className='text-sm text-gray-500'>({reviews.length})</span>
 
-                                <Link href='#reviews' className='mx-10 uppercase border-b border-primary text-sm hover:border-b-2'>380 reviews</Link>
+                                <Link href='#reviews' className='mx-10 uppercase border-b border-primary text-sm hover:border-b-2'>{reviewsWithComment.length} reviews</Link>
                             </div>
                         </div>
 
@@ -131,16 +136,19 @@ async function page({ params: { slug } }: Props) {
                             <div className="p-6 bg-gray-100">
                                 <div className="py-4 px-4 bg-white md:px-8">
                                     <ReviewForm/>
-                                    <RatingAnalysis ratings={[4.5, 5, 3, 3, 2, 5, 5]}/>
+                                    <RatingAnalysis totalRating={recipe?.rate} ratings={rateNumbers}/>
                                 </div>
                             </div>
 
                             <div>
                                 <div className="py-5 px-3 border-b">
-                                    <h4 className="text-xl font-bold">130 Reviews</h4>
+                                    <h4 className="text-xl font-bold">{reviewsWithComment.length} Reviews</h4>
                                 </div>
-                                <ReviewItem />
-                                <ReviewItem/>
+                                {
+                                    reviewsWithComment.map(rv => (
+                                        <ReviewItem key={rv.id}  review={rv}/>
+                                    ))
+                                }
                             </div>
 
                         </div>
