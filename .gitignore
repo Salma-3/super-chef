@@ -38,3 +38,6 @@ next-env.d.ts
 
 #placeholder
 placeholder-data.ts
+
+#env
+.env

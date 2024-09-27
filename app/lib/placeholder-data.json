@@ -1,0 +1,376 @@
+[
+  {
+    "id": 1,
+    "name": "Spaghetti Bolognese",
+    "slug": "spaghetti-bolognese",
+    "description": "A classic Italian pasta dish made with rich, flavorful meat sauce.",
+    "tags": ["pasta", "Italian", "dinner"],
+    "image": "https://example.com/images/spaghetti-bolognese.jpg",
+    "instructions": [
+      "Cook the spaghetti according to package instructions.",
+      "In a pan, sauté onions and garlic until softened.",
+      "Add ground beef and cook until browned.",
+      "Pour in tomato sauce and let simmer for 20 minutes.",
+      "Serve the sauce over the cooked spaghetti."
+    ],
+    "ingredients": [
+      "200g spaghetti",
+      "400g ground beef",
+      "1 onion, chopped",
+      "2 garlic cloves, minced",
+      "400g tomato sauce"
+    ],
+    "servings": 4,
+    "time": "30 min",
+    "calories": 600
+  },
+  {
+    "id": 2,
+    "name": "Chicken Caesar Salad",
+    "slug": "chicken-caesar-salad",
+    "description": "A healthy and delicious Caesar salad topped with grilled chicken.",
+    "tags": ["salad", "chicken", "healthy"],
+    "image": "https://example.com/images/chicken-caesar-salad.jpg",
+    "instructions": [
+      "Grill the chicken breast until fully cooked.",
+      "Chop romaine lettuce and place in a large bowl.",
+      "Toss the lettuce with Caesar dressing.",
+      "Top with grilled chicken, croutons, and Parmesan cheese."
+    ],
+    "ingredients": [
+      "2 chicken breasts",
+      "1 head romaine lettuce",
+      "50g croutons",
+      "50g Parmesan cheese",
+      "Caesar dressing"
+    ],
+    "servings": 2,
+    "time": "20 min",
+    "calories": 450
+  },
+  {
+    "id": 3,
+    "name": "Vegetarian Stir-Fry",
+    "slug": "vegetarian-stir-fry",
+    "description": "A quick and easy vegetable stir-fry with a savory soy sauce.",
+    "tags": ["vegetarian", "vegan", "stir-fry"],
+    "image": "https://example.com/images/vegetarian-stir-fry.jpg",
+    "instructions": [
+      "Heat oil in a wok and add chopped vegetables.",
+      "Stir-fry for 5-7 minutes until vegetables are tender.",
+      "Add soy sauce and stir well.",
+      "Serve hot with steamed rice."
+    ],
+    "ingredients": [
+      "1 bell pepper, chopped",
+      "1 zucchini, sliced",
+      "1 carrot, julienned",
+      "100g broccoli florets",
+      "2 tbsp soy sauce"
+    ],
+    "servings": 3,
+    "time": "15 min",
+    "calories": 300
+  },
+  {
+    "id": 4,
+    "name": "Beef Tacos",
+    "slug": "beef-tacos",
+    "description": "Classic Mexican tacos filled with seasoned beef and fresh toppings.",
+    "tags": ["Mexican", "tacos", "dinner"],
+    "image": "https://example.com/images/beef-tacos.jpg",
+    "instructions": [
+      "Brown the beef in a skillet and add taco seasoning.",
+      "Warm the taco shells in the oven.",
+      "Fill the shells with beef, lettuce, cheese, and salsa.",
+      "Serve immediately."
+    ],
+    "ingredients": [
+      "500g ground beef",
+      "8 taco shells",
+      "Lettuce, shredded",
+      "Cheddar cheese, grated",
+      "Salsa"
+    ],
+    "servings": 4,
+    "time": "25 min",
+    "calories": 550
+  },
+  {
+    "id": 5,
+    "name": "Margarita Pizza",
+    "slug": "margarita-pizza",
+    "description": "Simple yet delicious pizza topped with fresh mozzarella, tomatoes, and basil.",
+    "tags": ["pizza", "Italian", "vegetarian"],
+    "image": "https://example.com/images/margarita-pizza.jpg",
+    "instructions": [
+      "Preheat the oven to 220°C (425°F).",
+      "Roll out the pizza dough and spread tomato sauce over it.",
+      "Top with fresh mozzarella slices and tomato.",
+      "Bake for 12-15 minutes until the crust is golden.",
+      "Garnish with fresh basil leaves before serving."
+    ],
+    "ingredients": [
+      "1 pizza dough",
+      "200g fresh mozzarella",
+      "3 tomatoes, sliced",
+      "Basil leaves",
+      "Tomato sauce"
+    ],
+    "servings": 4,
+    "time": "30 min",
+    "calories": 700
+  },
+  {
+    "id": 6,
+    "name": "Chicken Alfredo",
+    "slug": "chicken-alfredo",
+    "description": "Creamy pasta dish made with Alfredo sauce and grilled chicken.",
+    "tags": ["pasta", "Italian", "dinner"],
+    "image": "https://example.com/images/chicken-alfredo.jpg",
+    "instructions": [
+      "Cook the fettuccine according to package instructions.",
+      "In a pan, melt butter and add garlic, cream, and Parmesan cheese.",
+      "Add cooked fettuccine and grilled chicken.",
+      "Toss everything together until well-coated.",
+      "Serve with extra Parmesan on top."
+    ],
+    "ingredients": [
+      "300g fettuccine",
+      "2 chicken breasts, grilled",
+      "100g Parmesan cheese",
+      "200ml heavy cream",
+      "2 garlic cloves, minced"
+    ],
+    "servings": 4,
+    "time": "35 min",
+    "calories": 800
+  },
+  {
+    "id": 7,
+    "name": "Avocado Toast",
+    "slug": "avocado-toast",
+    "description": "Simple and healthy toast topped with mashed avocado and a hint of lime.",
+    "tags": ["breakfast", "healthy", "vegetarian"],
+    "image": "https://example.com/images/avocado-toast.jpg",
+    "instructions": [
+      "Toast the bread until golden and crisp.",
+      "Mash the avocado in a bowl and season with lime juice and salt.",
+      "Spread the mashed avocado over the toast.",
+      "Garnish with chili flakes or extra toppings if desired."
+    ],
+    "ingredients": [
+      "2 slices of bread",
+      "1 ripe avocado",
+      "1 lime, juiced",
+      "Salt to taste",
+      "Chili flakes (optional)"
+    ],
+    "servings": 1,
+    "time": "10 min",
+    "calories": 350
+  },
+  {
+    "id": 8,
+    "name": "Egg Fried Rice",
+    "slug": "egg-fried-rice",
+    "description": "Quick and easy fried rice with scrambled eggs, vegetables, and soy sauce.",
+    "tags": ["Chinese", "fried rice", "easy"],
+    "image": "https://example.com/images/egg-fried-rice.jpg",
+    "instructions": [
+      "Cook rice and let it cool completely.",
+      "In a wok, scramble the eggs and set aside.",
+      "Stir-fry the vegetables in the wok with oil.",
+      "Add the rice and stir well with soy sauce.",
+      "Add the scrambled eggs back to the wok and mix."
+    ],
+    "ingredients": [
+      "2 cups cooked rice",
+      "2 eggs, beaten",
+      "Mixed vegetables (carrots, peas, corn)",
+      "2 tbsp soy sauce",
+      "1 tbsp oil"
+    ],
+    "servings": 3,
+    "time": "20 min",
+    "calories": 400
+  },
+  {
+    "id": 9,
+    "name": "Shrimp Scampi",
+    "slug": "shrimp-scampi",
+    "description": "Delicious shrimp cooked in a garlic butter sauce served over pasta.",
+    "tags": ["seafood", "Italian", "dinner"],
+    "image": "https://example.com/images/shrimp-scampi.jpg",
+    "instructions": [
+      "Cook the pasta according to package instructions.",
+      "In a pan, melt butter and sauté garlic until fragrant.",
+      "Add the shrimp and cook until pink.",
+      "Stir in lemon juice and parsley.",
+      "Serve the shrimp over the cooked pasta."
+    ],
+    "ingredients": [
+      "200g shrimp",
+      "200g linguine",
+      "4 garlic cloves, minced",
+      "50g butter",
+      "Juice of 1 lemon",
+      "Chopped parsley"
+    ],
+    "servings": 2,
+    "time": "25 min",
+    "calories": 500
+  },
+  {
+    "id": 10,
+    "name": "Greek Salad",
+    "slug": "greek-salad",
+    "description": "A fresh and healthy salad with cucumber, tomatoes, olives, and feta cheese.",
+    "tags": ["salad", "Greek", "healthy"],
+    "image": "https://example.com/images/greek-salad.jpg",
+    "instructions": [
+      "Chop the cucumber, tomatoes, and red onion.",
+      "Combine them in a bowl with olives and feta cheese.",
+      "Drizzle with olive oil and season with oregano and salt.",
+      "Toss everything together and serve."
+    ],
+    "ingredients": [
+      "1 cucumber",
+      "4 tomatoes",
+      "1 red onion",
+      "100g feta cheese",
+      "50g black olives",
+      "2 tbsp olive oil",
+      "1 tsp oregano"
+    ],
+    "servings": 2,
+    "time": "15 min",
+    "calories": 300
+  },
+  {
+    "id": 11,
+    "name": "Pancakes",
+    "slug": "pancakes",
+    "description": "Fluffy and delicious pancakes, perfect for breakfast or brunch.",
+    "tags": ["breakfast", "pancakes", "easy"],
+    "image": "https://example.com/images/pancakes.jpg",
+    "instructions": [
+      "Whisk together flour, sugar, baking powder, and salt.",
+      "In another bowl, whisk milk, egg, and melted butter.",
+      "Combine the wet and dry ingredients until just mixed.",
+      "Heat a griddle and pour batter onto it, cooking until bubbles form.",
+      "Flip and cook until golden on both sides."
+    ],
+    "ingredients": [
+      "200g flour",
+      "2 tbsp sugar",
+      "1 tsp baking powder",
+      "1 egg",
+      "200ml milk",
+      "50g butter"
+    ],
+    "servings": 4,
+    "time": "20 min",
+    "calories": 450
+  },
+  {
+    "id": 12,
+    "name": "Grilled Salmon",
+    "slug": "grilled-salmon",
+    "description": "Tender and flaky grilled salmon seasoned with lemon and herbs.",
+    "tags": ["seafood", "healthy", "dinner"],
+    "image": "https://example.com/images/grilled-salmon.jpg",
+    "instructions": [
+      "Season the salmon with olive oil, lemon juice, and herbs.",
+      "Preheat the grill to medium-high heat.",
+      "Grill the salmon for 6-8 minutes per side until cooked through.",
+      "Serve with steamed vegetables or rice."
+    ],
+    "ingredients": [
+      "2 salmon fillets",
+      "2 tbsp olive oil",
+      "Juice of 1 lemon",
+      "Fresh herbs (dill, parsley)"
+    ],
+    "servings": 2,
+    "time": "25 min",
+    "calories": 400
+  },
+  {
+    "id": 13,
+    "name": "Chicken Fajitas",
+    "slug": "chicken-fajitas",
+    "description": "Sizzling chicken fajitas with bell peppers and onions, served with tortillas.",
+    "tags": ["Mexican", "chicken", "dinner"],
+    "image": "https://example.com/images/chicken-fajitas.jpg",
+    "instructions": [
+      "Slice the chicken, bell peppers, and onions.",
+      "Heat a skillet and sauté the vegetables and chicken until cooked.",
+      "Season with fajita seasoning and cook for 5 more minutes.",
+      "Serve with warm tortillas and your choice of toppings."
+    ],
+    "ingredients": [
+      "2 chicken breasts",
+      "1 red bell pepper",
+      "1 yellow bell pepper",
+      "1 onion",
+      "Fajita seasoning",
+      "Tortillas"
+    ],
+    "servings": 4,
+    "time": "30 min",
+    "calories": 600
+  },
+  {
+    "id": 14,
+    "name": "Beef Stew",
+    "slug": "beef-stew",
+    "description": "Hearty beef stew with tender meat, potatoes, and carrots simmered in a rich broth.",
+    "tags": ["beef", "stew", "comfort food"],
+    "image": "https://example.com/images/beef-stew.jpg",
+    "instructions": [
+      "Brown the beef in a large pot and set aside.",
+      "In the same pot, sauté onions and garlic.",
+      "Add the beef back to the pot along with broth, potatoes, and carrots.",
+      "Simmer for 1-2 hours until the beef is tender.",
+      "Season with salt and pepper and serve."
+    ],
+    "ingredients": [
+      "500g beef stew meat",
+      "3 potatoes, diced",
+      "2 carrots, sliced",
+      "1 onion, chopped",
+      "2 garlic cloves, minced",
+      "1L beef broth"
+    ],
+    "servings": 4,
+    "time": "2 hours",
+    "calories": 700
+  },
+  {
+    "id": 15,
+    "name": "Quinoa Salad",
+    "slug": "quinoa-salad",
+    "description": "Healthy and refreshing quinoa salad with cucumber, tomatoes, and feta cheese.",
+    "tags": ["salad", "quinoa", "healthy"],
+    "image": "https://example.com/images/quinoa-salad.jpg",
+    "instructions": [
+      "Cook the quinoa according to package instructions and let it cool.",
+      "Chop the cucumber and tomatoes.",
+      "Mix the quinoa with vegetables and crumbled feta cheese.",
+      "Drizzle with olive oil and lemon juice.",
+      "Toss everything together and serve."
+    ],
+    "ingredients": [
+      "1 cup quinoa",
+      "1 cucumber, chopped",
+      "2 tomatoes, chopped",
+      "100g feta cheese, crumbled",
+      "2 tbsp olive oil",
+      "Juice of 1 lemon"
+    ],
+    "servings": 3,
+    "time": "20 min",
+    "calories": 350
+  }
+]

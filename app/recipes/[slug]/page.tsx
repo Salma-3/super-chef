@@ -1,3 +1,4 @@
+import prisma from '@/app/lib/db'
 import ReviewForm from '@/app/ui/forms/ReviewForm'
 import Buttons from '@/app/ui/recipes/Buttons'
 import Rating from '@/app/ui/recipes/Rating'
@@ -7,23 +8,36 @@ import Image from 'next/image'
 import Link from 'next/link'
 import React from 'react'
 
-type Props = {}
+type Props = {
+    params: {
+        slug: string
+    }
+}
 
-function page({ }: Props) {
+async function page({ params: { slug } }: Props) {
+    const recipe = await prisma.recipe.findFirst({ 
+        where: { slug }, 
+        include: { 
+            nutrition: true,
+            author: true, 
+            category: true 
+        }
+    })
+
+    console.log(recipe);
+
+    if(!recipe) {
+        return <main>Not Found</main>
+    }
     return (
         <main className=''>
-            {/* recipe image */}
-
-            {/* ingredients list */}
-
-            {/* instructions */}
-
+          
             <section className="py-10 px-5 text-gray-600">
 
                 <div>
                     <div className='mx-auto w-fit max-w-[600px]'>
-                        <h1 className='text-3xl mb-5 font-bold text-gray-800'>Grilled Delmonico Steaks</h1>
-                        <span className='text-gray-400 block my-4 md:m-0 md:float-end'>updated at 03/05/2024</span>
+                        <h1 className='text-3xl mb-5 font-bold text-gray-800'>{recipe?.name}</h1>
+                        <span className='text-gray-400 block my-4 md:m-0 md:float-end'>updated at {recipe?.updatedAt.toLocaleDateString('en-AU') }</span>
                         {/* rate shortcut */}
                         <div>
                             <div className='mb-10 flex'>
@@ -37,21 +51,21 @@ function page({ }: Props) {
                         </div>
 
                         <Buttons />
-                        <Image className='block border border-gray-400' src='/images/dinner.jpg' width={600} height={400} alt='food' />
+                        <Image className='block border border-gray-400' src={recipe.image} width={600} height={400} alt='food' />
 
                         {/* servings, time and calories brief */}
                         <div className='py-10'>
                             <div className="flex gap-5 justify-center">
                                 <div className="p-4 px-6 shadow-md text-center text-primary bg-primary/10">
                                     <span className="text-3xl ti ti-timer"></span>
-                                    <span className='block text-lg'>30 min</span>
+                                    <span className='block text-lg'>{recipe.time}</span>
                                 </div>
                                 <div className="p-4 px-6 shadow-md text-center text-primary bg-primary/10">
-                                    <span className="text-3xl font-bold">4</span>
+                                    <span className="text-3xl font-bold">{recipe.servings}</span>
                                     <span className='block text-lg'>Servings</span>
                                 </div>
                                 <div className="p-4 px-6 shadow-md text-center text-primary bg-primary/10">
-                                    <span className="text-3xl font-bold">1000</span>
+                                    <span className="text-3xl font-bold">{recipe.calories}</span>
                                     <span className='block text-lg'>Calories</span>
                                 </div>
                             </div>
@@ -59,39 +73,21 @@ function page({ }: Props) {
                         {/* ingredients */}
                         <h3 className='text-2xl font-bold underline my-5'>Ingredients</h3>
                         <ul className='list-disc mx-7'>
-                            <li className='mb-2'>
-                                Lorem ipsum dolor sit amet, consectetur
-                            </li>
-                            <li className='mb-2'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit
-                            </li>
-                            <li className='mb-2'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            </li>
-                            <li className='mb-2'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            </li>
-                            <li className='mb-2'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit,
-                            </li>
+                            {
+                                recipe.ingredients.map(ing => (
+                                    <li key={`ing-${ing}`} className="mb-2">{ing}</li>
+                                ))
+                            }
                         </ul>
 
                         <h3 className="text-2xl mb-5 mt-10 font-bold underline">Instructions</h3>
 
                         <ol className='list-decimal px-7 max-w-[600px]'>
-                            <li className='mb-3'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex e
-                            </li>
-
-                            <li className='mb-3'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex e
-                            </li>
-                            <li className='mb-3'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex e
-                            </li>
-                            <li className='mb-3'>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex e
-                            </li>
+                            {
+                                recipe.instructions.map(ins => (
+                                    <li key={`ins-${ins}`} className="mb-3">{ins}</li>
+                                ))
+                            }
                         </ol>
 
                         {/* Nutrition facts per serving */}
@@ -99,18 +95,13 @@ function page({ }: Props) {
                         <div id='nutrition' className="my-5">
                             <h3 className='text-2xl mb-5 underline font-bold'>Nutrition Facts (per serving)</h3>
                             <div className="flex justify-center gap-10 text-lg text-center">
-                                <div>
-                                    <p>32g <br />Calories</p>
-                                </div>
-                                <div>
-                                    <p>21g <br />Fat</p>
-                                </div>
-                                <div>
-                                    <p>10g <br />Carbs</p>
-                                </div>
-                                <div>
-                                    <p>25g <br />Protien</p>
-                                </div>
+                                {
+                                    recipe.nutrition.map(nt => (
+                                        <div key={nt.id}>
+                                            <p>{nt.name} <br />{nt.value}</p>
+                                        </div>
+                                    ))
+                                }
                             </div>
                         </div>
 
@@ -121,10 +112,10 @@ function page({ }: Props) {
                             <div className="flex gap-4 items-center">
                                 <Image src='/images/avatar.png' height={50} width={50} alt='author avatar' className='rounded-full'/>
                                 <div>
-                                   <Link href="#" className='text-lg font-bold text-primary'>
-                                        Anisha Moer
+                                   <Link href={`/users/${recipe.author?.id}`} className='text-lg font-bold text-primary'>
+                                        {recipe.author?.username}
                                    </Link>
-                                   <p className='text-gray-700'>Posted at 12/03/2024</p>
+                                   <p className='text-gray-700'>Posted at {recipe.createdAt.toLocaleDateString('en-AU')}</p>
                                 </div>
                             </div>
                         </div>
