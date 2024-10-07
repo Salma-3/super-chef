@@ -4,8 +4,10 @@ import "./globals.css";
 import './themify-icons.css'
 import Navbar from "@/app/ui/Navbar";
 import Footer from "@/app/ui/Footer";
+import { SessionProvider } from "next-auth/react";
+import Providers from "./ui/Providers";
 
-const kalam = Kalam({ subsets: ['latin'], weight: ['300','400', '700'] });
+const kalam = Kalam({ subsets: ['latin'], weight: ['300', '400', '700'] });
 
 export const metadata: Metadata = {
   title: {
@@ -35,17 +37,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params
 }: Readonly<{
   children: React.ReactNode;
+  params: any
 }>) {
   return (
-    <html lang="en">
-  
-      <body className={kalam.className}>
-        <Navbar />
-        {children}
-        <Footer />
-      </body>
-    </html>
+      <html lang="en">
+        <body className={kalam.className}>
+          <Providers params={params}>
+            <Navbar />
+          </Providers>
+            {children}
+            <Footer />
+        </body>
+      </html>
+
   );
 }

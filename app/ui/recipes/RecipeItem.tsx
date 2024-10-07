@@ -13,7 +13,7 @@ function RecipeItem({ data }: Props) {
   return (
                 <Link href={`/recipes/${data.slug}`} className='group flex flex-row gap-3 pb-4 md:flex-col md:pb-0  w-full border-b md:border'>
                     <div className="relative md:w-full w-[170px] h-[106px] md:h-[200px] border border-gray-200">
-                        <Image src={'https://via.placeholder.com/400x300'} fill alt='recipe cover' />
+                        <Image src={data.image?.url!} fill alt='recipe cover' />
                         <button className='block absolute top-2 right-2 pt-2 w-[40px] h-[40px] rounded-full text-2xl text-white bg-primary hover:bg-darkorange'>
                             <i className='ti ti-heart'></i>
                         </button>

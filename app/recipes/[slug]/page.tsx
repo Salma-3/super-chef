@@ -20,7 +20,8 @@ async function page({ params: { slug } }: Props) {
         include: { 
             nutrition: true,
             author: true, 
-            category: true 
+            category: true,
+            image: true
         }
     })
 
@@ -56,7 +57,7 @@ async function page({ params: { slug } }: Props) {
                         </div>
 
                         <Buttons />
-                        <Image className='block border border-gray-400' src={recipe.image} width={600} height={400} alt='food' />
+                        <Image className='block border border-gray-400' src={recipe.image?.url!} width={600} height={400} alt='food' />
 
                         {/* servings, time and calories brief */}
                         <div className='py-10'>
@@ -115,9 +116,9 @@ async function page({ params: { slug } }: Props) {
                         <div className='py-4 border-b border-gray-300'>
                             <h4 className='mb-6 text-2xl underline font-bold'>Author</h4>
                             <div className="flex gap-4 items-center">
-                                <Image src='/images/avatar.png' height={50} width={50} alt='author avatar' className='rounded-full'/>
+                                <Image src={recipe.author?.avatar!} height={50} width={50} alt='author avatar' className='rounded-full'/>
                                 <div>
-                                   <Link href={`/users/${recipe.author?.id}`} className='text-lg font-bold text-primary'>
+                                   <Link href={`/users/${recipe.author?.username}`} className='text-lg font-bold text-primary'>
                                         {recipe.author?.username}
                                    </Link>
                                    <p className='text-gray-700'>Posted at {recipe.createdAt.toLocaleDateString('en-AU')}</p>
@@ -146,6 +147,7 @@ async function page({ params: { slug } }: Props) {
                                 </div>
                                 {
                                     reviewsWithComment.map(rv => (
+                                        // @ts-ignore
                                         <ReviewItem key={rv.id}  review={rv}/>
                                     ))
                                 }

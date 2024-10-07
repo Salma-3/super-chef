@@ -31,7 +31,12 @@ async function RecipesIndex({ searchParams }: Props) {
 
   
   // @ts-ignore
-  const recipes: RecipeWithCategory[] = await prisma.recipe.findMany({ where, include: { category: true }, take, skip: offset }) 
+  const recipes: RecipeWithCategory[] = await prisma.recipe.findMany({ where, 
+    include: { category: true, image: true }, 
+    orderBy: {createdAt: 'desc' },
+    take, 
+    skip: offset
+   }) 
   // @ts-ignore
   const recipesCount = await prisma.recipe.count({ where })
 

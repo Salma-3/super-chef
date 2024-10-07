@@ -4,6 +4,7 @@ import Image from 'next/image'
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { signOut, useSession } from 'next-auth/react';
 
 type Props = {}
 
@@ -15,6 +16,10 @@ function Navbar({ }: Props) {
     const isCurrentPath = (href: string) => {
         return pathname === href;
     }
+
+    const session = useSession()
+    console.log('session', session)
+    
     return (
         <nav className="bg-gray-100">
             <div className="mx-auto max-w-7xl px-2 sm:px-6 lg:px-8">
@@ -42,7 +47,9 @@ function Navbar({ }: Props) {
                             <div className="flex space-x-4">
                                 <Link href="/" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/') && 'text-primary')} aria-current="page">Home</Link>
                                 <Link href="/recipes" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/recipes') && 'text-primary')}>Recipes</Link>
-                                <Link href="/signup" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/signup') && 'text-primary')}>Signup</Link>
+                                {
+                                    !session.data?.user && <Link href="/auth/login" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/auth/login') && 'text-primary')}>Login</Link>
+                                }
                                 <Link href="/blog" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/blog') && 'text-primary')}>Blog</Link>
                                 <Link href="/about" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/about') && 'text-primary')}>About</Link>
                             </div>
@@ -56,22 +63,23 @@ function Navbar({ }: Props) {
                         </button>
 
                         {/* <!-- Profile dropdown --> */}
+                        {session && session.data && 
                         <div className="relative ml-3">
                             {dropdownOpen && <button onMouseOver={() => setDropdown(false)} className="fixed top-0 left-0 bottom-0 right-0"></button>}
                             <div>
                                 <button onClick={() => setDropdown(!dropdownOpen)} onMouseOver={() => setDropdown(true)} type="button" className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                     <span className="absolute -inset-1.5"></span>
                                     <span className="sr-only">Open user menu</span>
-                                    <Image className="h-8 w-8 rounded-full" height={50} width={50} src="/icons/icon-92x92.png" alt="avatar" />
+                                    {session.data?.user && <Image className="h-8 w-8 rounded-full" height={50} width={50} src={session.data?.user.avatar} alt="avatar" />}
                                 </button>
                             </div>
 
                             {dropdownOpen && <div className="absolute right-0 z-10 w-48 origin-top-right rounded-md bg-white py-1 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none" role="menu" aria-orientation="vertical" aria-labelledby="user-menu-button" tabIndex={-1}>
                                 <Link href="/profile" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary hover:text-white" role="menuitem" tabIndex={-1} id="user-menu-item-0">Your Profile</Link>
                                 <Link href="/settings" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary hover:text-white" role="menuitem" tabIndex={-1} id="user-menu-item-1">Settings</Link>
-                                <Link href="#" className="block px-4 py-2 text-sm text-gray-700 hover:bg-primary hover:text-white" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</Link>
+                                <button onClick={() => signOut()} className="block w-full px-4 py-2 text-sm text-left text-gray-700 hover:bg-primary hover:text-white" role="menuitem" tabIndex={-1} id="user-menu-item-2">Sign out</button>
                             </div>}
-                        </div>
+                        </div>}
                     </div>
                 </div>
             </div>
@@ -81,7 +89,7 @@ function Navbar({ }: Props) {
                 <div className="space-y-1 px-2 pb-3 pt-2">
                     <Link href="/" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/') && "bg-primary text-white")} aria-current="page">Home</Link>
                     <Link href="/recipes" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/recipes') && "bg-primary text-white")}>Recipes</Link>
-                    <Link href="/signup" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/signup') && "bg-primary text-white")}>Signup</Link>
+                    <Link href="/auth/login" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/auth/login') && "bg-primary text-white")}>Login</Link>
                     <Link href="/blog" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/blog') && "bg-primary text-white")}>Blog</Link>
                     <Link href="/about" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/about') && "bg-primary text-white")}>About</Link>
                 </div>

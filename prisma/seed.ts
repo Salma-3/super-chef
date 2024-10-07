@@ -37,33 +37,51 @@ async function createCategories() {
 }
 
 
-async function createRecipes() {
-  const recipes = recipesData.map((rcp: any) =>
-    ({
-    name: rcp.name,
-    description: rcp.description,
-    slug: rcp.slug,
-    tags: rcp.tags,
-    image: rcp.image,
-    instructions: rcp.instructions,
-    ingredients: rcp.ingredients,
-    servings: rcp.servings,
-    time: rcp.time,
-    calories: rcp.calories,
-    authorId: 1,
-    categoryId: 1
-  }));
+async function createImage(url: string) {
+  const image = await prisma.image.create({
+    data: {
+      url,
+      height: 500,
+      width: 600,
+      publicId: 'fakeid'
+    }
+  })
 
-  await prisma.recipe.createMany({ data: recipes })
+  return image;
+}
+
+async function createRecipes() {
+  const recipes = recipesData.map(async (rcp: any) => {
+    const img = await createImage(rcp.image)
+    const data = {
+      name: rcp.name,
+      description: rcp.description,
+      slug: rcp.slug,
+      tags: rcp.tags,
+      imageId: img.id,
+      instructions: rcp.instructions,
+      ingredients: rcp.ingredients,
+      servings: rcp.servings,
+      time: rcp.time,
+      calories: rcp.calories,
+      authorId: 1,
+      categoryId: 1
+    }
+    return data;
+  });
+
+  const result = await Promise.all(recipes)
+
+  await prisma.recipe.createMany({ data: result })
   return;
 }
 
-async function createReviews(){
+async function createReviews() {
   const reviews = Array.from({ length: 100 }, (_, index) => ({
     rate: faker.number.int({ min: 1, max: 5 }),
     body: faker.lorem.sentences(3),
     authorId: 1,
-    recipeId: [1, 2, 3,4,5,6,7,8,9,10,11,12,13,14, 15].at(index % 14)!
+    recipeId: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15].at(index % 14)!
   }));
 
   const result = await prisma.review.createMany({
@@ -91,10 +109,10 @@ async function updateRecipesRate() {
 
 
 async function main() {
-    // await createUser()
-    // await createCategories()
-    // await createRecipes()
-    // await createReviews()
+    await createUser()
+    await createCategories()
+    await createRecipes()
+    await createReviews()
     await updateRecipesRate()
 }
 

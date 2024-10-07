@@ -11,7 +11,7 @@ function ReviewItem({ review }: Props) {
   return (
     <div className='py-3 border-b'>
         <div className='flex gap-5 items-center'>
-            <Image src='/images/avatar.png' className='rounded-full' width={50} height={50} alt='avatar' />
+            <Image src={review.author.avatar} className='rounded-full' width={50} height={50} alt='avatar' />
             <h4 className='text-lg'>{review.author.username}</h4>
         </div>
         <div className='flex gap-3 mt-2'>

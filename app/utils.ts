@@ -50,3 +50,20 @@ export function buildRecipeQuery(params: SantisizedParams) {
     return query;
 }
 
+
+
+export function isEmptyObject(obj: Object) {
+    return Object.keys(obj).length === 0;
+}
+
+
+export function omitUndefined(obj: Object) {
+    const result: any = {}
+    for(const [key, val] of Object.entries(obj)) {
+        if(val) {
+            result[key] = val;
+        }
+    }
+
+    return result;
+}
