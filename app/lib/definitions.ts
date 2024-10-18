@@ -67,3 +67,8 @@ export class AuthError extends Error {
         Object.setPrototypeOf(this, AuthError)
     }
 }
+
+export enum SORT_CRIT {
+    RATE = 'RATE',
+    NEW = 'NEW'
+}

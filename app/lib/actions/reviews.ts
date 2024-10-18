@@ -1,10 +1,8 @@
 'use server'
-
 import { z } from "zod";
 import { createReviewSchema } from "@/app/lib/validations";
 import prisma from "@/app/lib/db";
 import { revalidatePath } from "next/cache";
-import { redirect, RedirectType } from "next/navigation";
 
 export async function createReview(data: z.infer<typeof createReviewSchema>, slug: string) {
     try {

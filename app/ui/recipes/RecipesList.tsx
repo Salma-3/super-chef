@@ -4,20 +4,26 @@ import { RecipeWithCategory } from '@/app/lib/definitions';
 import prisma from '@/app/lib/db';
 import Providers from '../Providers';
 
+type SortBy = {
+    rate?: 'desc';
+    createdAt?: 'desc';
+}
+
 type Props = {
     user: { id: number; email: string; username: string; avatar: string } | undefined;
     favorites: number[];
     take: number;
     offset: number;
-    where: any
+    where: any;
+    sortBy: SortBy
 }
 
 async function RecipesList(props: Props) {
-    const { user, favorites, take, offset, where } = props
+    const { user, favorites, take, offset, where, sortBy } = props
     const recipes: RecipeWithCategory[] = await prisma.recipe.findMany({
         where,
         include: { category: true, image: true },
-        orderBy: { createdAt: 'desc' },
+        orderBy: sortBy,
         take,
         skip: offset
     });

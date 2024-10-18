@@ -5,11 +5,12 @@ import RecipesList from '@/app/ui/recipes/RecipesList'
 import Pagination from '@/app/ui/Pagination'
 import prisma from '@/app/lib/db'
 import SearchForm from '@/app/ui/forms/SearchForm'
-import { RecipeWithCategory } from '../lib/definitions'
+import { RecipeWithCategory, SORT_CRIT } from '../lib/definitions'
 import { buildRecipeQuery, searchParamsSantizer } from '../utils'
 import { getServerSession } from 'next-auth'
 import { authOptions } from '@/auth'
 import Spinner from '../ui/Spinner'
+import Sort from '../ui/recipes/Sort'
 
 type Props = {
   searchParams?: {
@@ -17,6 +18,7 @@ type Props = {
     page?: string;
     tags?: string[];
     categories: string[];
+    sort: SORT_CRIT
   },
   params: any
 }
@@ -30,6 +32,7 @@ async function RecipesIndex({ searchParams, params }: Props) {
   const currentPage = prms.page;
   const take = 12;
   const offset = (currentPage - 1) * take;
+  const sortBy = searchParams?.sort === SORT_CRIT.RATE ? { rate: 'desc' } : { createdAt: 'desc'}
 
   const where = buildRecipeQuery(prms);
 
@@ -60,12 +63,7 @@ async function RecipesIndex({ searchParams, params }: Props) {
           <div className="w-full lg:w-8/12">
             <div className="flex justify-between items-start pb-7 border-b border-gray-300">
               <p className='text-gray-500'><b className='text-primary underline'>{recipesCount}</b> recipes found</p>
-              <select name="sort" id="sort" className='px-2 border border-gray-300'>
-                <option value="">Sort</option>
-                <option value="highrate">By Rate</option>
-                <option value="newest">Newest</option>
-                <option value="quick">Quick</option>
-              </select>
+              <Sort />
             </div>
 
             {/* recipes list */}
@@ -75,7 +73,7 @@ async function RecipesIndex({ searchParams, params }: Props) {
                 <Spinner/>
               </div>
             }>
-              <RecipesList {...params} take={take} offset={offset} where={where} favorites={userFavorites} user={session?.user} />
+              <RecipesList {...params} take={take} offset={offset} sortBy={sortBy} where={where} favorites={userFavorites} user={session?.user} />
             </Suspense>
 
             {/* pagination */}

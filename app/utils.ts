@@ -1,3 +1,5 @@
+import { SORT_CRIT } from "./lib/definitions";
+
 export type RecipeSearchParams = {
     page?: string;
     search?: string;
@@ -10,6 +12,7 @@ export type SantisizedParams = {
     search: string;
     categories: number[];
     tags: string[] | null;
+
 }
 
 export function searchParamsSantizer(params: RecipeSearchParams): SantisizedParams{

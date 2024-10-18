@@ -22,23 +22,21 @@ async function page({ params }: Props) {
             nutrition: true,
             author: true, 
             category: true,
-            image: true
+            image: true,
+            reviews: {
+                include: {
+                    author: true
+                }
+            }
         }
     })
-
-    const reviews = await prisma.review.findMany({ 
-        where: { 
-            recipe: { 
-                slug: params.slug 
-            }
-        }, 
-        include: { author: true },
-        orderBy: { createdAt: 'desc' }
-    })
+    
+    const reviews = recipe?.reviews || []
 
     const reviewsWithComment = reviews.filter(rv => !!rv.body)
+
     const rateNumbers = reviews.map(rv => rv.rate);
-    
+
 
     if(!recipe) {
         return <main>Not Found</main>
@@ -160,7 +158,7 @@ async function page({ params }: Props) {
                                 {
                                     reviewsWithComment.map(rv => (
                                         // @ts-ignore
-                                        <ReviewItem key={rv.id}  review={rv}/>
+                                        <ReviewItem key={rv.id} review={rv}/>
                                     ))
                                 }
                             </div>
