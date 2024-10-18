@@ -5,6 +5,7 @@ import { z } from "zod";
 import {  createRecipeSchema } from "../validations";
 import axios from 'axios'
 import { redirect, RedirectType } from "next/navigation";
+import { Chela_One } from "next/font/google";
 
 export const createImage = async (data: { url: string; publicId: string; height: number; width: number;  }) => {
     try {
@@ -158,6 +159,41 @@ export const deleteRecipe = async (id: number, imageId: number) => {
 
         await deleteImageFromDb(imageId);
 
+    } catch (error) {
+        console.log(error)
+        return false;
+    }
+}
+
+export const favorite = async (recipeId: number, userId: number) => {
+    try {
+        const result = await prisma.favoriteRecipe.create({
+           data: {
+            recipeId,
+            userId
+           }
+        })
+
+        console.log(result)
+        return true;
+    } catch (error) {
+        console.log('Error while favoriting recipe:', error)
+        return false;
+    }
+}
+
+
+export const unfavorite = async (recipeId: number, userId: number) => {
+    try {
+        const result = await prisma.favoriteRecipe.deleteMany({
+            where: {
+                recipeId,
+                userId
+            }
+        });
+        
+       console.log(result)
+       return true;
     } catch (error) {
         console.log(error)
         return false;

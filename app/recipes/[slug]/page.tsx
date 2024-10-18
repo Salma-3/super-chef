@@ -1,5 +1,6 @@
 import prisma from '@/app/lib/db'
 import ReviewForm from '@/app/ui/forms/ReviewForm'
+import Providers from '@/app/ui/Providers'
 import Buttons from '@/app/ui/recipes/Buttons'
 import Rating from '@/app/ui/recipes/Rating'
 import RatingAnalysis from '@/app/ui/recipes/RatingAnalysis'
@@ -14,9 +15,9 @@ type Props = {
     }
 }
 
-async function page({ params: { slug } }: Props) {
+async function page({ params }: Props) {
     const recipe = await prisma.recipe.findFirst({ 
-        where: { slug }, 
+        where: { slug: params.slug }, 
         include: { 
             nutrition: true,
             author: true, 
@@ -25,9 +26,16 @@ async function page({ params: { slug } }: Props) {
         }
     })
 
-    const reviews = await prisma.review.findMany({ where: { recipe: { slug }}, include: { author: true }})
+    const reviews = await prisma.review.findMany({ 
+        where: { 
+            recipe: { 
+                slug: params.slug 
+            }
+        }, 
+        include: { author: true },
+        orderBy: { createdAt: 'desc' }
+    })
 
-    console.log(recipe);
     const reviewsWithComment = reviews.filter(rv => !!rv.body)
     const rateNumbers = reviews.map(rv => rv.rate);
     
@@ -35,6 +43,7 @@ async function page({ params: { slug } }: Props) {
     if(!recipe) {
         return <main>Not Found</main>
     }
+
     return (
         <main className=''>
           
@@ -49,14 +58,15 @@ async function page({ params: { slug } }: Props) {
                             <div className='mb-10 flex'>
                                 <Rating rate={recipe?.rate}/>
 
-                                <Link href='#rating' className='ms-3 me-2 text-sm border-b border-primary hover:border-b-2 '>{recipe?.rate}</Link>
+                                <Link href='#rating' className='ms-3 me-2 text-sm border-b border-primary hover:border-b-2 '>{recipe?.rate.toFixed(1)}</Link>
                                 <span className='text-sm text-gray-500'>({reviews.length})</span>
 
                                 <Link href='#reviews' className='mx-10 uppercase border-b border-primary text-sm hover:border-b-2'>{reviewsWithComment.length} reviews</Link>
                             </div>
                         </div>
-
-                        <Buttons />
+                        <Providers params={params}>
+                          <Buttons recipeId={recipe?.id} />
+                        </Providers>
                         <Image className='block border border-gray-400' src={recipe.image?.url!} width={600} height={400} alt='food' />
 
                         {/* servings, time and calories brief */}
@@ -136,12 +146,14 @@ async function page({ params: { slug } }: Props) {
 
                             <div className="p-6 bg-gray-100">
                                 <div className="py-4 px-4 bg-white md:px-8">
-                                    <ReviewForm/>
-                                    <RatingAnalysis totalRating={recipe?.rate} ratings={rateNumbers}/>
+                                    <Providers params={params} >
+                                       <ReviewForm slug={recipe.slug} recipeId={recipe.id}/>
+                                    </Providers>
+                                    <RatingAnalysis totalRating={recipe.rate} ratings={rateNumbers}/>
                                 </div>
                             </div>
 
-                            <div>
+                            <div id='reviewList'>
                                 <div className="py-5 px-3 border-b">
                                     <h4 className="text-xl font-bold">{reviewsWithComment.length} Reviews</h4>
                                 </div>

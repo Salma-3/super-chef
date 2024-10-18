@@ -37,7 +37,8 @@ next-env.d.ts
 
 
 #placeholder
-placeholder-data.ts
+placeholder-data.json
+placeholder-posts.json
 
 #env
 .env

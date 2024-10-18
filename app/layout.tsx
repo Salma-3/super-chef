@@ -6,6 +6,7 @@ import Navbar from "@/app/ui/Navbar";
 import Footer from "@/app/ui/Footer";
 import { SessionProvider } from "next-auth/react";
 import Providers from "./ui/Providers";
+import { Toaster } from "react-hot-toast";
 
 const kalam = Kalam({ subsets: ['latin'], weight: ['300', '400', '700'] });
 
@@ -43,11 +44,12 @@ export default function RootLayout({
   params: any
 }>) {
   return (
-      <html lang="en">
+      <html data-color-mode='light' lang="en">
         <body className={kalam.className}>
           <Providers params={params}>
             <Navbar />
           </Providers>
+          <Toaster />
             {children}
             <Footer />
         </body>

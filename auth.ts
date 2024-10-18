@@ -24,7 +24,10 @@ export const authOptions: AuthOptions = {
                         username: true,
                         password: true,
                         avatar: true,
-                    }
+                        favorites: {
+                            select: { recipeId: true }
+                        }
+                    },
                 })
 
                 if(!user) throw new AuthError('Invalid email or password', 'InvalidCreds')
@@ -35,6 +38,7 @@ export const authOptions: AuthOptions = {
                         email: user.email, 
                         username: user.username,
                         avatar: user.avatar,
+                        favorites: user.favorites.map(fv => fv.recipeId)
                     }
                 } else {
                     throw new AuthError('Invalid email or password', 'InvalidCreds');
@@ -51,13 +55,21 @@ export const authOptions: AuthOptions = {
         strategy: 'jwt'
     },
     callbacks: {
-        async jwt({ token, user }){
+        async jwt({ token, user, trigger, session }){
             if(user) {
                 token.user = { 
                     id: Number(user.id), 
                     username: user.username, 
                     email: user.email, 
                     avatar: user.avatar,
+                    favorites: user.favorites
+                }
+            }
+
+            if(trigger === 'update') {
+                if(session?.user?.favorites) {
+                    console.log('FAVORTIES', session.user.favorites)
+                    token.user.favorites = session.user.favorites;
                 }
             }
             return Promise.resolve(token);
@@ -71,7 +83,6 @@ export const authOptions: AuthOptions = {
         },
 
         async redirect({ url, baseUrl }) {
-            console.log(url, baseUrl)
             if(url.includes('signup')) {
                 return `${baseUrl}/profile`
             } else {

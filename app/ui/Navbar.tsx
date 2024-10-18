@@ -18,7 +18,6 @@ function Navbar({ }: Props) {
     }
 
     const session = useSession()
-    console.log('session', session)
     
     return (
         <nav className="bg-gray-100">
@@ -40,9 +39,9 @@ function Navbar({ }: Props) {
                         </button>
                     </div>
                     <div className="flex flex-1 items-center justify-center sm:items-stretch sm:justify-start">
-                        <div className="flex flex-shrink-0 items-center">
+                        <Link href='/' className="flex flex-shrink-0 items-center">
                             <Image className="h-8 w-auto" src='/logo.png' width={80} height={80} alt="Super chef" />
-                        </div>
+                        </Link>
                         <div className="hidden sm:ml-6 sm:block">
                             <div className="flex space-x-4">
                                 <Link href="/" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/') && 'text-primary')} aria-current="page">Home</Link>
@@ -70,7 +69,7 @@ function Navbar({ }: Props) {
                                 <button onClick={() => setDropdown(!dropdownOpen)} onMouseOver={() => setDropdown(true)} type="button" className="relative flex rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-primary" id="user-menu-button" aria-expanded="false" aria-haspopup="true">
                                     <span className="absolute -inset-1.5"></span>
                                     <span className="sr-only">Open user menu</span>
-                                    {session.data?.user && <Image className="h-8 w-8 rounded-full" height={50} width={50} src={session.data?.user.avatar} alt="avatar" />}
+                                    {session.data?.user && session.data?.user.avatar && <Image className="h-8 w-8 rounded-full" height={50} width={50} src={session.data?.user.avatar} alt="avatar" />}
                                 </button>
                             </div>
 

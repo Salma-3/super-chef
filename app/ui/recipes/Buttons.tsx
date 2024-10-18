@@ -1,25 +1,81 @@
 'use client';
-import React, { useState } from 'react'
-import Link from 'next/link';
+import React, { useEffect, useState } from 'react'
 import Modal from '../Modal';
+import { HeartIcon } from './RecipeItem';
+import { useSession } from 'next-auth/react';
+import { favorite, unfavorite } from '@/app/lib/actions/recipes';
+import toast from 'react-hot-toast';
 
 
 
-type Props = {}
+type Props = {
+  recipeId: number
+}
 
-function Buttons({ }: Props) {
+function Buttons({ recipeId }: Props) {
+  const [activeSave, setActive] = useState(false)
+  const [isFavorite, setFavorite] = useState(false)
+  const session = useSession()
+  const user = session.data?.user
+    
+  useEffect(() => {
+    if(user && user.favorites.includes(recipeId)) {
+      setFavorite(true)
+    }
+  }, [session])
+
+    
+    console.log(user)
+
     const [modalOpen, setOpenModal] = useState(false)
     const handleModal = () => setOpenModal(!modalOpen)
 
     const handleCopyLink = () => {
       navigator.clipboard.writeText(window.location.href)
+      toast.success('copied!')
       return;
     }
 
+    
+
+    const onHoverSave = () => {
+      setActive(!activeSave)
+    }
+
+    const onClickSave = async () => {
+      if(!user) {
+        toast.error('You need to sign in')
+        return;
+      }
+      if(isFavorite) {
+        setFavorite(false)
+        await unfavorite(recipeId, user.id)
+        session.update({
+          ...user,
+          favorites: user.favorites.filter(id => id !== recipeId)
+        })
+        toast.success('unsaved')
+        
+      }else {
+        setFavorite(true)
+        await favorite(recipeId, user.id)
+        session.update({
+          ...user,
+          user: {
+            favorites: [...user.favorites, recipeId]
+          }
+        })
+        toast.success('saved!')
+      }
+      return;
+    }
+
+
+
     return (
         <div className='mb-4 relative'>
-            <button className="px-4 py-2 mb-2 rounded-lg me-2 bg-primary text-white border border-primary hover:bg-white hover:text-primary">
-                Save <span className="ti ti-heart"></span>
+            <button onClick={onClickSave} onMouseEnter={onHoverSave} onMouseLeave={onHoverSave} className="px-4 py-2 mb-2 rounded-lg me-2 bg-primary text-white border border-primary">
+                {isFavorite ? 'Saved' : 'Save'} <HeartIcon filled={activeSave || isFavorite}/>
             </button>
             <button onClick={handleCopyLink} className="px-4 py-2 mx-2 mb-2 rounded-lg bg-secondary text-gray-800 border border-secondary hover:bg-white">
               Copy link <span className="ti ti-link"></span>

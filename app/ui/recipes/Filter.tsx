@@ -5,12 +5,12 @@ import { Category } from '@prisma/client';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 
 type Props = {
-    tags: {tag: string}[];
-    categories: Category[]
+    tags: string[];
+    categories: Category[];
 }
 
-function Filter({ categories, tags }: Props) {
-    const [isOpen, setOpen] = useState(true);
+function Filter({ tags, categories}: Props) {
+    const [isOpen, setOpen] = useState(window.innerWidth > 768);
     const handleCollapse = () => setOpen(!isOpen);
     const searchParams = useSearchParams()
     const pathname = usePathname()
@@ -47,12 +47,14 @@ function Filter({ categories, tags }: Props) {
 
     const handleSubmit = (evt: FormEvent) => {
         evt.preventDefault()
-        const params = new URLSearchParams(searchParams)
+        const params = new URLSearchParams(searchParams!)
         params.delete('categories')
         params.delete('tags');
         
         selectedCategories.forEach(ct => params.append('categories', ct))
         selectedTags.forEach(tg => params.append('tags', tg))
+
+        params.set('page', '1')
 
         const url = pathname + '?' + params.toString()
         router.push(url);
@@ -88,9 +90,9 @@ function Filter({ categories, tags }: Props) {
                     <div className="grid grid-cols-2">
                     {
                         tags.map(tag => (
-                                <div key={`filter-tags-${tag.tag}`} className="flex gap-3 h-6 items-center">
-                                    <input id={`f-tg-${tag.tag}`} name="tag" value={tag.tag} onChange={onChange} type="checkbox" className="h-4 w-4 rounded border-primary text-primary accent-primary focus:ring-primary" />
-                                    <label htmlFor={`f-tg-${tag.tag}`} className="font-meduim text-lg text-gray-900">{tag.tag}</label>
+                                <div key={`filter-tags-${tag}`} className="flex gap-3 h-6 items-center">
+                                    <input id={`f-tg-${tag}`} name="tag" value={tag} onChange={onChange} type="checkbox" className="h-4 w-4 rounded border-primary text-primary accent-primary focus:ring-primary" />
+                                    <label htmlFor={`f-tg-${tag}`} className="font-meduim text-lg text-gray-900">{tag}</label>
                                 </div>
                         ))
                     }

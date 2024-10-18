@@ -7,6 +7,7 @@ declare module "next-auth" {
             username: string;
             email: string;
             avatar: string;
+            favorites: number[]
         }
     }
 
@@ -15,6 +16,7 @@ declare module "next-auth" {
         username: string;
         email: string;
         avatar: string;
+        favorites: number[]
     }
 }
 
@@ -25,6 +27,7 @@ declare module "next-auth/jwt" {
             username: string;
             email: string;
             avatar: string;
+            favorites: number[]
         }
     }
 }

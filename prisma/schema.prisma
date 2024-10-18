@@ -15,17 +15,20 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  email     String   @unique
-  username  String   @unique
+  id        Int              @id @default(autoincrement())
+  email     String           @unique
+  username  String           @unique
   password  String
-  avatar    String   @default("")
+  avatar    String           @default("")
   facebook  String?
   instagram String?
   pintrest  String?
   twitter   String?
   recipes   Recipe[]
   reviews   Review[]
+  favorites FavoriteRecipe[]
+  articles  Article[]
+  comments  Comment[]
 }
 
 model Category {
@@ -43,36 +46,38 @@ model Nutrition {
 }
 
 model Image {
-  id       Int    @id @default(autoincrement())
+  id       Int     @id @default(autoincrement())
   url      String
   publicId String
   height   Int
   width    Int
-  recipe Recipe?
+  recipe   Recipe?
+  article  Article?
 }
 
 model Recipe {
-  id           Int         @id @default(autoincrement())
+  id           Int              @id @default(autoincrement())
   name         String
-  slug         String      @unique
+  slug         String           @unique
   description  String
-  author       User?       @relation(fields: [authorId], references: [id])
+  author       User?            @relation(fields: [authorId], references: [id])
   authorId     Int?
-  category     Category    @relation(fields: [categoryId], references: [id])
+  category     Category         @relation(fields: [categoryId], references: [id])
   categoryId   Int
   tags         String[]
-  image        Image?       @relation(fields: [imageId], references: [id])
-  imageId      Int?         @unique
-  servings     Int          @default(4)
+  image        Image?           @relation(fields: [imageId], references: [id])
+  imageId      Int?             @unique
+  servings     Int              @default(4)
   time         String
   ingredients  String[]
   instructions String[]
   calories     Int
-  rate         Float       @default(0)
+  rate         Float            @default(0)
   nutrition    Nutrition[]
   reviews      Review[]
-  createdAt    DateTime    @default(now())
-  updatedAt    DateTime    @updatedAt
+  createdAt    DateTime         @default(now())
+  updatedAt    DateTime         @updatedAt
+  favoritedBy  FavoriteRecipe[]
 }
 
 model Review {
@@ -83,6 +88,42 @@ model Review {
   recipeId  Int
   rate      Int
   body      String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model FavoriteRecipe {
+  id       Int @id @default(autoincrement())
+  userId   Int
+  recipeId Int
+
+  user   User   @relation(fields: [userId], references: [id])
+  recipe Recipe @relation(fields: [recipeId], references: [id])
+
+  @@unique([userId, recipeId])
+}
+
+model Article {
+  id        Int      @id @default(autoincrement())
+  title     String
+  slug      String
+  body      String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  Int
+  comments  Comment[]
+  image     Image?   @relation(fields: [imageId], references: [id])
+  imageId   Int?     @unique
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Comment {
+  id        Int      @id @default(autoincrement())
+  body      String
+  author    User     @relation(fields: [authorId], references: [id], onDelete: Cascade)
+  authorId  Int
+  article   Article  @relation(fields: [articleId], references: [id], onDelete: Cascade)
+  articleId Int
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

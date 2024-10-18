@@ -20,6 +20,32 @@ const reviewWithAuthor = Prisma.validator<Prisma.ReviewDefaultArgs>()({
     }
 })
 
+const articleWithImage = Prisma.validator<Prisma.ArticleDefaultArgs>()({
+    include: {
+        image: true
+    }
+})
+
+const articleWithImageAndAuthorAndComments = Prisma.validator<Prisma.ArticleDefaultArgs>()({
+    include: {
+        image: true,
+        author: true,
+        comments: true
+    }
+})
+
+const commentWithAuthor = Prisma.validator<Prisma.CommentDefaultArgs>()({
+    include: {
+        author: true
+    }
+})
+
+export type CommentWithAuthor = Prisma.CommentGetPayload<typeof commentWithAuthor>
+
+export type ArticleWithImageAndAuthorAndComments = Prisma.ArticleGetPayload<typeof articleWithImageAndAuthorAndComments>
+
+export type ArticleWithImage  = Prisma.ArticleGetPayload<typeof articleWithImage>
+
 export type RecipeWithCategory = Prisma.RecipeGetPayload<typeof recipeWithCategory>;
 
 export type RecipeWithCategoryAndAuthor = Prisma.RecipeGetPayload<typeof recipeWithCategoryAndAuthor>;

@@ -1,6 +1,7 @@
 import { PrismaClient } from '@prisma/client';
 import recipesData from '../app/lib/placeholder-data.json';
 import { faker } from '@faker-js/faker';
+import articlesData from '../app/lib/placholder-posts.json';
 
 import bcrypt from 'bcryptjs';
 
@@ -108,12 +109,33 @@ async function updateRecipesRate() {
 }
 
 
+async function createArticles() {
+ 
+  const data = await Promise.all(articlesData.map(async (dt) => {
+    const img = await prisma.image.create({ data: dt.image })
+    return {
+      ...dt, 
+      image: undefined,
+      imageId: img.id,
+      slug: dt.title.replaceAll(' ', '-') + '-' + Date.now()
+    }
+  }));
+
+  console.log(data)
+
+  const posts = await prisma.article.createMany({ data })
+  console.log(posts)
+
+}
+
+
 async function main() {
     await createUser()
     await createCategories()
     await createRecipes()
     await createReviews()
     await updateRecipesRate()
+    await createArticles()
 }
 
 main()
