@@ -28,7 +28,7 @@ async function ArticleContent({ slug }: Props) {
     
       const session = await getServerSession(authOptions);
   return (
-    <div className=''>
+    <div className='max-w-[800px]'>
           <h1 className="text-4xl font-bold mb-4">{article.title}</h1>
           <hr />
           <div className="my-6">

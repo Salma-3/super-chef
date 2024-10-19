@@ -70,3 +70,7 @@ export function omitUndefined(obj: Object) {
 
     return result;
 }
+
+export function slugify(str: string) {
+    return str.toLowerCase().replaceAll(/[^a-zA-Z0-9]/g, '-').concat('-', String(Date.now()))
+}

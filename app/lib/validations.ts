@@ -58,7 +58,7 @@ export const createReviewSchema = z.object({
 
 
 export const createArticleSchema = z.object({
-    title: z.string().min(5, 'Too short title').max(100, 'Too long title').trim(),
+    title: z.string().min(5, 'Too short title').max(200, 'Too long title').trim(),
     body: z.string().min(5, 'Too short for body').trim(),
     authorId: z.number(),
 })

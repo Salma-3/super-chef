@@ -4,6 +4,7 @@ import { createArticleSchema, createCommentSchema, createImageSchema } from "@/a
 import prisma from "@/app/lib/db";
 import { revalidatePath } from "next/cache";
 import axios from "axios";
+import { slugify } from "@/app/utils";
 
 
 
@@ -29,7 +30,7 @@ export const createArticle = async (data: z.infer<typeof createArticleSchema>, i
                 article: {
                     create: {
                         ...data,
-                        slug: data.title.toLowerCase().split(' ').join('-') + '-' + Date.now(),
+                        slug: slugify(data.title)
                     }
                 }
             },
@@ -39,6 +40,54 @@ export const createArticle = async (data: z.infer<typeof createArticleSchema>, i
         return {
             success: true,
             article: image.article,
+        };
+    } catch (error) {
+        console.log(error)
+        return {
+            success: false,
+            message: (error as Error).message,
+        }
+    }
+}
+
+
+export const updateArticle = async (id: number, data: z.infer<typeof createArticleSchema>, imageData: z.infer<typeof createImageSchema>) => {
+    try {
+        const parsed = createArticleSchema.safeParse(data);
+        
+        if(!parsed.success) {
+            return {
+                errors: parsed.error.flatten().fieldErrors,
+                success: parsed.success,
+            }
+        } 
+
+       
+        const image = !imageData.id ? await prisma.image.create({
+            // @ts-ignore
+            data: {
+                publicId: imageData.publicId,
+                url: imageData.url,
+                width: imageData.width,
+                height: imageData.height,
+            },
+        }) : imageData;
+
+        const article = await prisma.article.update({
+            where: { id },
+            data: {
+                title: data.title,
+                body: data.body,
+                imageId: image.id,
+                authorId: data.authorId,
+                slug: slugify(data.title)
+            }
+        })
+        console.log(article)
+
+        return {
+            success: true,
+            article: article,
         };
     } catch (error) {
         console.log(error)

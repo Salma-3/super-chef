@@ -4,10 +4,11 @@ import { z } from 'zod'
 import { createImageSchema } from '@/app/lib/validations'
 
 type Props = {
-    onSuccess: (data: z.infer<typeof createImageSchema>) => void
+    onSuccess: (data: z.infer<typeof createImageSchema>) => void;
+    disabled?: boolean
 }
 
-function UploadWidget({ onSuccess }: Props) {
+function UploadWidget({ onSuccess, disabled }: Props) {
     const onUploaded = (result:  CloudinaryUploadWidgetResults) => {
         console.log('upload result', result)
 
@@ -28,7 +29,7 @@ function UploadWidget({ onSuccess }: Props) {
         <CldUploadWidget options={{ multiple: false, folder: 'superchef' }} signatureEndpoint='/api/sign-cloudinary-params' onSuccess={onUploaded} >
             {
                 ({ open }) => (
-                    <button type='button' onClick={() => open()} className='mt-3 mb-6 px-4  py-2 rounded-lg border border-primary text-primary hover:bg-primary hover:text-white'>
+                    <button disabled={disabled} type='button' onClick={() => open()} className='mt-3 mb-6 px-4  py-2 rounded-lg bg-primary text-white hover:bg-primary hover:bg-orange-700 disabled:bg-orange-200'>
                        <span className="ti ti-upload"></span> Uplaod Image
                     </button>
                 )

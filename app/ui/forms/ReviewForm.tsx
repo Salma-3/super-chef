@@ -7,11 +7,10 @@ import { createReview } from '@/app/lib/actions/reviews';
 type Props = {
     recipeId: number;
     slug: string;
+    userId?: number;
 }
 
-function ReviewForm({ recipeId, slug }: Props) {
-
-    const { status, data } = useSession()
+function ReviewForm({ recipeId, slug, userId }: Props) {
 
     const [loading, setLoading] = useState(false)
     const [rate, setRate] = useState(0);
@@ -29,7 +28,7 @@ function ReviewForm({ recipeId, slug }: Props) {
         setLoading(true)
         setErrors({ message: '', fieldErrors: {} })
 
-        if(status !== 'authenticated') {
+        if(!userId) {
             setErrors({...errors, message: 'You need sign in first'});
             return;
         }
@@ -37,7 +36,7 @@ function ReviewForm({ recipeId, slug }: Props) {
         const result = await createReview({
             rate,
             body: review,
-            authorId: data.user?.id!,
+            authorId: userId!,
             recipeId
         }, slug)
 

@@ -9,8 +9,7 @@ import { redirect } from 'next/navigation'
 import prisma from '../lib/db'
 import ViewMoreBtn from '../ui/ViewMoreBtn'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import Image from 'next/image'
-import ArticleCard from '../ui/blog/ArticleCard'
+import MyArticles from '../ui/profile/MyArticles'
 
 type Props = {
     searchParams: {
@@ -105,13 +104,7 @@ async function profilePage({ searchParams: { limit } }: Props) {
                     </div>
                 </TabsContent>
                 <TabsContent value="articles">
-                    <div className="grid gap-5 grid-cols-1 md:grid-cols-2 lg:grid-cols-3">
-                    {
-                        fullUser?.articles.map(arcl => (
-                            <ArticleCard key={arcl.slug} article={arcl}/>
-                        ))
-                    }
-                    </div>
+                    <MyArticles userId={session.user.id} articles={fullUser?.articles || []}/>
                     <div className="my-3">
                         <Link className='px-3 py-1 my-3 rounded-lg bg-primary text-white hover:bg-darkorange' href='/blog/new'>
                             New Blog Post
