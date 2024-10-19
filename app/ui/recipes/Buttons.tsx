@@ -22,7 +22,7 @@ function Buttons({ recipeId }: Props) {
     if(user && user.favorites.includes(recipeId)) {
       setFavorite(true)
     }
-  }, [session])
+  }, [session, recipeId])
 
     
     console.log(user)
