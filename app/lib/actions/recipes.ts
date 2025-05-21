@@ -4,8 +4,6 @@ import prisma from "@/app/lib/db";
 import { z } from "zod";
 import {  createRecipeSchema } from "../validations";
 import axios from 'axios'
-import { redirect, RedirectType } from "next/navigation";
-import { Chela_One } from "next/font/google";
 
 export const createImage = async (data: { url: string; publicId: string; height: number; width: number;  }) => {
     try {

@@ -50,7 +50,7 @@ function Navbar({ }: Props) {
                                     !session.data?.user && <Link href="/auth/login" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/auth/login') && 'text-primary')}>Login</Link>
                                 }
                                 <Link href="/blog" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/blog') && 'text-primary')}>Blog</Link>
-                                <Link href="/about" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/about') && 'text-primary')}>About</Link>
+                                <Link href="/ai-generator" className={clsx("rounded-md px-3 py-2 text-md font-medium hover:text-primary", isCurrentPath('/ai-generator') && 'text-primary')}>AI Recipes <span className='ti ti-wand'></span></Link>
                             </div>
                         </div>
                     </div>
@@ -90,7 +90,7 @@ function Navbar({ }: Props) {
                     <Link href="/recipes" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/recipes') && "bg-primary text-white")}>Recipes</Link>
                     <Link href="/auth/login" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/auth/login') && "bg-primary text-white")}>Login</Link>
                     <Link href="/blog" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/blog') && "bg-primary text-white")}>Blog</Link>
-                    <Link href="/about" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/about') && "bg-primary text-white")}>About</Link>
+                    <Link href="/ai-generator" className={clsx("block rounded-md px-3 py-2 text-base font-medium text-gray-800", isCurrentPath('/ai-generator') && "bg-primary text-white")}>AI Recipes <span className='ti ti-wand'></span></Link>
                 </div>
             </div>}
         </nav>
